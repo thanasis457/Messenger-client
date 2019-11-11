@@ -6,7 +6,7 @@ Receives native alerts and functions as a native app
 
 ## Installing the app
 
-Macos: Go to https://github.com/thanasis457/Messenger-client/releases/ and download the dmg file
+Macos: Go to https://github.com/thanasis457/Messenger-client/releases/ and download the dmg file.
 
 Currently there is only a macos ready-made app.
 
