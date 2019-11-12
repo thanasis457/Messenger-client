@@ -16,6 +16,8 @@ function createWindow () {
     },
     icon : path.join(__dirname,"ms.icns")
   })
+  // win.webContents.session.clearStorageData();
+  if(process.platform!='darwin') win.setAutoHideMenuBar(true);
   win.loadFile('index.html');
   // and load the index.html of the app.
 
@@ -41,7 +43,8 @@ app.on('ready',()=>{
   const image = electron.nativeImage.createFromPath(
     path.join(__dirname,"mes.png")
   );
-  app.dock.setIcon(image);
+  if(process.platform=='darwin') app.dock.setIcon(image);
+  else win.setIcon(image);
 })
 
 // Quit when all windows are closed.

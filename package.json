@@ -5,11 +5,11 @@
   "description": "",
   "scripts": {
     "start": "electron .",
-    "dist":"electron-builder",
+    "dist": "electron-builder",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "build":{
-    "icon":"ms.icns"
+  "build": {
+    "icon": "ms.icns"
   },
   "author": "",
   "license": "ISC",
