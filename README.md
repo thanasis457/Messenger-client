@@ -8,7 +8,7 @@ Receives native alerts and functions as a native app
 
 Macos: Go to https://github.com/thanasis457/Messenger-client/releases/ and download the dmg file.
 
-Currently there is only a macos ready-made app.
+Windows: Go to https://github.com/thanasis457/Messenger-client/releases/ and download the exe file.
 
 For other platforms you have to follow the steps below for running the code from your local machine.
 
