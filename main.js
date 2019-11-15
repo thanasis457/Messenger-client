@@ -5,7 +5,7 @@ const { app, BrowserWindow, globalShortcut } = require('electron')
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
-
+var isQuitting=false
 function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({
@@ -17,6 +17,10 @@ function createWindow () {
     },
     icon : path.join(__dirname,"ms.icns")
   })
+  // win.bind(['command+k', 'ctrl+k'], () => {
+  //   app.exit();
+  //   app.quit();
+  // });
   // win.webContents.session.clearStorageData();
   if(process.platform!='darwin') win.setAutoHideMenuBar(true);
   win.loadFile('index.html');
@@ -27,26 +31,30 @@ function createWindow () {
   // win.webContents.openDevTools()
 
   // Emitted when the window is closed.
-  globalShortcut.register('CommandOrControl+Q', () => {
-    // alert(hey);
-    app.quit();
-    app.exit();
-  });
   win.on('close', event => {
+    if(!isQuitting){
       event.preventDefault();
-			// Workaround for https://github.com/electron/electron/issues/10023
-			if (process.platform=='darwin') {
-				// On macOS we're using `app.hide()` in order to focus the previous window correctly
-				app.hide();
-			} else {
-				win.hide();
-			}
+      // Workaround for https://github.com/electron/electron/issues/10023
+      if (process.platform=='darwin') {
+        // On macOS we're using `app.hide()` in order to focus the previous window correctly
+        app.hide();
+      } else {
+        win.hide();
+      }
+    }
+    else{
+      win=null;
+    }
 	});
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
+
+app.on('before-quit', () => {
+	isQuitting = true;
+});
 app.on('ready',()=>{
   createWindow();
   const app = electron.app;
@@ -61,9 +69,7 @@ app.on('ready',()=>{
 app.on('window-all-closed', () => {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+  app.quit()
 })
 
 app.on('activate', () => {
