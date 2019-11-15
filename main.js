@@ -1,6 +1,7 @@
-const { app, BrowserWindow } = require('electron')
+
 const electron=require('electron')
 const path=require('path')
+const { app, BrowserWindow, globalShortcut } = require('electron')
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
@@ -26,9 +27,13 @@ function createWindow () {
   // win.webContents.openDevTools()
 
   // Emitted when the window is closed.
+  globalShortcut.register('CommandOrControl+Q', () => {
+    // alert(hey);
+    app.quit();
+    app.exit();
+  });
   win.on('close', event => {
-			event.preventDefault();
-
+      event.preventDefault();
 			// Workaround for https://github.com/electron/electron/issues/10023
 			if (process.platform=='darwin') {
 				// On macOS we're using `app.hide()` in order to focus the previous window correctly
